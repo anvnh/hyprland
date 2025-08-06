@@ -162,6 +162,8 @@ v mkdir -p $XDG_BIN_HOME $XDG_CACHE_HOME $XDG_CONFIG_HOME $XDG_DATA_HOME
 # (eg. in ~/.config/hypr) won't be mixed together
 
 # MISC (For .config/* but not zsh, not Hyprland)
+# Copy miscellaneous .config directories (excluding zsh and hypr which are handled separately)
+# This includes fcitx5, kitty, wlogout, xdg-desktop-portal, etc.
 case $SKIP_MISCCONF in
   true) sleep 0;;
   *)
