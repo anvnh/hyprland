@@ -349,7 +349,7 @@ Item { // Wrapper
                             materialSymbol: 'terminal',
                             execute: () => {
                                 const cleanedCommand = root.searchingText.replace("file://", "");
-                                Quickshell.execDetached(["bash", "-c", searchingText.startsWith('sudo') ? `${Config.options.apps.terminal} fish -C '${cleanedCommand}'` : cleanedCommand]);
+                                Quickshell.execDetached(["bash", "-c", searchingText.startsWith('sudo') ? `${Config.options.apps.terminal} zsh -c '${cleanedCommand}'` : cleanedCommand]);
                             }
                         };
                         const launcherActionObjects = root.searchActions.map(action => {

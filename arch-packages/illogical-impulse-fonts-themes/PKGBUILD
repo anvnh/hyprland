@@ -10,7 +10,7 @@ depends=(
   breeze-plus
   darkly-bin
   eza
-  fish
+  zsh
   fontconfig
   kde-material-you-colors
   kitty
