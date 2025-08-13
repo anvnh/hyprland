@@ -101,6 +101,7 @@ Item { // Window
                 width: iconSize
                 height: iconSize
                 sourceSize: Qt.size(iconSize, iconSize)
+                visible: false
 
                 Behavior on width {
                     animation: Appearance.animation.elementMoveEnter.numberAnimation.createObject(this)

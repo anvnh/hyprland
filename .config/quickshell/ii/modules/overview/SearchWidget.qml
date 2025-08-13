@@ -209,6 +209,32 @@ Item { // Wrapper
                     placeholderTextColor: Appearance.m3colors.m3outline
                     implicitWidth: root.searchingText == "" ? Appearance.sizes.searchWidthCollapsed : Appearance.sizes.searchWidth
 
+                    Keys.onPressed: (event) => {
+                        if (event.modifiers & Qt.ControlModifier) {
+                            if (event.key === Qt.Key_N) {
+                                // Ctrl+N: Move down in results
+                                if (appResults.count > 0) {
+                                    if (appResults.currentIndex < appResults.count - 1) {
+                                        appResults.currentIndex++;
+                                    } else {
+                                        appResults.currentIndex = 0; // Wrap to top
+                                    }
+                                }
+                                event.accepted = true;
+                            } else if (event.key === Qt.Key_P) {
+                                // Ctrl+P: Move up in results
+                                if (appResults.count > 0) {
+                                    if (appResults.currentIndex > 0) {
+                                        appResults.currentIndex--;
+                                    } else {
+                                        appResults.currentIndex = appResults.count - 1; // Wrap to bottom
+                                    }
+                                }
+                                event.accepted = true;
+                            }
+                        }
+                    }
+
                     Behavior on implicitWidth {
                         id: searchWidthBehavior
                         enabled: false
