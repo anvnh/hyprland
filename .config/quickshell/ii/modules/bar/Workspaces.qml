@@ -172,15 +172,21 @@ Item {
                     id: workspaceButtonBackground
                     implicitWidth: workspaceButtonWidth
                     implicitHeight: workspaceButtonWidth
-                    property var biggestWindow: HyprlandData.biggestWindowForWorkspace(button.workspaceValue)
-                    property var mainAppIconSource: Quickshell.iconPath(AppSearch.guessIcon(biggestWindow?.class), "image-missing")
+                    // NOTE: Chagne the workspace icon to number instead of icon
+                    property var biggestWindow: null  // Don't get any window
+                    property var mainAppIconSource: ""  // Set icon to null
+                    // NOTE: If you want to changed the icon to number, uncomment the next line
+                    // property var biggestWindow: HyprlandData.biggestWindowForWorkspace(button.workspaceValue)
+                    // property var mainAppIconSource: Quickshell.iconPath(AppSearch.guessIcon(biggestWindow?.class), "image-missing")
 
                     StyledText { // Workspace number text
-                        opacity: GlobalStates.workspaceShowNumbers
-                            || ((Config.options?.bar.workspaces.alwaysShowNumbers && (!Config.options?.bar.workspaces.showAppIcons || !workspaceButtonBackground.biggestWindow || GlobalStates.workspaceShowNumbers))
-                            || (GlobalStates.workspaceShowNumbers && !Config.options?.bar.workspaces.showAppIcons)
-                            )  ? 1 : 0
-                        z: 3
+                        // NOTE: Uncomment these lines to show workspaces icon
+                        // opacity: GlobalStates.workspaceShowNumbers
+                        //     || ((Config.options?.bar.workspaces.alwaysShowNumbers && (!Config.options?.bar.workspaces.showAppIcons || !workspaceButtonBackground.biggestWindow || GlobalStates.workspaceShowNumbers))
+                        //     || (GlobalStates.workspaceShowNumbers && !Config.options?.bar.workspaces.showAppIcons)
+                        //     )  ? 1 : 0
+                        // z: 3
+                        opacity: 1
 
                         anchors.centerIn: parent
                         horizontalAlignment: Text.AlignHCenter
@@ -199,10 +205,12 @@ Item {
                     }
                     Rectangle { // Dot instead of ws number
                         id: wsDot
-                        opacity: (Config.options?.bar.workspaces.alwaysShowNumbers
-                            || GlobalStates.workspaceShowNumbers
-                            || (Config.options?.bar.workspaces.showAppIcons && workspaceButtonBackground.biggestWindow)
-                            ) ? 0 : 1
+                        // NOTE: Uncomment these lines to show workspaces dot
+                        // opacity: (Config.options?.bar.workspaces.alwaysShowNumbers
+                        //     || GlobalStates.workspaceShowNumbers
+                        //     || (Config.options?.bar.workspaces.showAppIcons && workspaceButtonBackground.biggestWindow)
+                        //     ) ? 0 : 1
+                        opacity: 0
                         visible: opacity > 0
                         anchors.centerIn: parent
                         width: workspaceButtonWidth * 0.18
@@ -271,12 +279,7 @@ Item {
                         }
                     }
                 }
-                
-
             }
-
         }
-
     }
-
 }
