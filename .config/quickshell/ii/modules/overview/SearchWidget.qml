@@ -36,6 +36,19 @@ Item { // Wrapper
         root.searchingText = text;
     }
 
+    function runAndDismiss(fn) {
+        try {
+            if (typeof fn === "function") fn();
+        } finally {
+            Qt.callLater(() => {
+                nonAppResultsTimer.stop();
+                root.cancelSearch();                 // clear text, v.v.
+                GlobalStates.overviewOpen = false;   // đóng overlay (cái bạn đang dùng để focus)
+            });
+        }
+    }
+
+
     property var searchActions: [
         {
             action: "dark",
@@ -249,11 +262,18 @@ Item { // Wrapper
 
                     onAccepted: {
                         if (appResults.count > 0) {
-                            // Get the first visible delegate and trigger its click
-                            let firstItem = appResults.itemAtIndex(0);
-                            if (firstItem && firstItem.clicked) {
-                                firstItem.clicked();
+                            const idx = appResults.currentIndex >= 0 ? appResults.currentIndex : 0;
+                            const item = appResults.itemAtIndex(idx) || appResults.itemAtIndex(0);
+
+                            if (item?.entry?.execute) {
+                                runAndDismiss(item.entry.execute);    // Clipboard/Emoji/Math/Command…
+                            } else if (typeof item?.clicked === "function") {
+                                runAndDismiss(item.clicked);          // fallback nếu delegate chỉ có clicked()
+                            } else {
+                                runAndDismiss(null);                   // không có gì để chạy thì vẫn đóng
                             }
+                        } else {
+                            runAndDismiss(null);
                         }
                     }
 

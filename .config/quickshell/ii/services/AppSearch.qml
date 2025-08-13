@@ -8,6 +8,31 @@ import Quickshell
  * - Eases fuzzy searching for applications by name
  * - Guesses icon name for window class name
  */
+
+// Thêm vào đầu file, sau các import
+Process {
+    id: desktopDirWatcher
+    running: true
+    command: ["inotifywait", "-m", "-r", "-e", "create,delete,move", "/usr/share/applications", "/usr/local/share/applications", "~/.local/share/applications"]
+    
+    stdout: SplitParser {
+        onRead: data => {
+            console.log("Desktop directory changed:", data);
+            // Debounce refresh
+            refreshTimer.restart();
+        }
+    }
+}
+
+Timer {
+    id: refreshTimer
+    interval: 1000 // Wait 1 second before refreshing
+    repeat: false
+    onTriggered: {
+        AppSearch.refresh();
+    }
+}
+
 Singleton {
     id: root
     property bool sloppySearch: Config.options?.search.sloppy ?? false
