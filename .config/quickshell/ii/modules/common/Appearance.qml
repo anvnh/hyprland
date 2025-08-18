@@ -139,6 +139,11 @@ Singleton {
         property color colSurfaceContainer: ColorUtils.transparentize(m3colors.m3surfaceContainer, root.contentTransparency)
         property color colSurfaceContainerHigh: ColorUtils.transparentize(m3colors.m3surfaceContainerHigh, root.contentTransparency)
         property color colSurfaceContainerHighest: ColorUtils.transparentize(m3colors.m3surfaceContainerHighest, root.contentTransparency)
+        
+        // Solid versions for notifications (no transparency)
+        property color colSurfaceContainerSolid: m3colors.m3surfaceContainer
+        property color colSurfaceContainerHighSolid: m3colors.m3surfaceContainerHigh
+        property color colSurfaceContainerHighestSolid: m3colors.m3surfaceContainerHighest
         property color colSurfaceContainerHighestHover: ColorUtils.mix(m3colors.m3surfaceContainerHighest, m3colors.m3onSurface, 0.95)
         property color colSurfaceContainerHighestActive: ColorUtils.mix(m3colors.m3surfaceContainerHighest, m3colors.m3onSurface, 0.85)
         property color colTooltip: m3colors.m3inverseSurface
